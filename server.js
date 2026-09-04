@@ -54,14 +54,11 @@ const handlePost = function( request, response ) {
       response.writeHead( 200, "OK", {'Content-Type': 'application/json' })
       response.end(JSON.stringify(players))
     } else if (request.url === "/delete") {
-      console.log("hello world")
       received_data = JSON.parse(dataString)
-      console.log(received_data)
       const player_index = players.findIndex(item => item.player_name === received_data.player_name)
       if (player_index !== -1) {
         players.splice(player_index, 1)
       }
-      console.log(players)
       response.writeHead(200, "OK", {'Content-Type' : 'application/json'})
       response.end(JSON.stringify(players))
     }

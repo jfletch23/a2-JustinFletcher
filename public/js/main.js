@@ -22,7 +22,6 @@ const submit = async function( event ) {
   const data_array = await response.json()
   display_data(data_array)
 
-  console.log( 'text:', data_array )
   form.reset()
 }
 
@@ -49,7 +48,6 @@ const deleteRequest = async function( event, body ) {
     body: stringy
   })
   const data_array = await response.json()
-  console.log(data_array)
   playersRequest()
 }
 
