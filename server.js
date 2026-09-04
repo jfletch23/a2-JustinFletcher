@@ -8,9 +8,9 @@ const http = require( 'http' ),
       port = 3000
 
 const players = [
-  { 'player_name': 'Jesus Made', 'player_birthday': new Date("2007-05-08"), 'player_age': 19, "position" : "Shortstop", "bats" : "S", "throws": "R", "hit_tool" : 60, "power_tool" : 60, "run_tool" : 60, "arm_tool" : 60, "field_tool" : 55, "overall" : 59},
-  { 'player_name': 'Leo De Vries', 'player_birthday': new Date("2006-10-11"), 'player_age': 19, "position" : "Third Base", "bats" : "S", "throws" : "R", "hit_tool" : 60, "power_tool" : 55, "run_tool" : 55, "arm_tool" : 55, "field_tool" : 50, "overall" : 55 },
-  { 'player_name': 'Franklin Arias', 'player_birthday': new Date("2005-11-19"), 'player_age': 20, "position" : "Shortstop", "bats" : "R", "throws" : "R", "hit_tool" : 60, "power_tool" : 55, "run_tool" : 45, "arm_tool" : 55, "field_tool" : 60, "overall" : 55 } 
+  { 'player_name': 'Jesus Made', 'player_birthday': "2007-05-08", 'player_age': 19, "position" : "Shortstop", "bats" : "S", "throws": "R", "hit_tool" : 60, "power_tool" : 60, "run_tool" : 60, "arm_tool" : 60, "field_tool" : 55, "overall" : 59},
+  { 'player_name': 'Leo De Vries', 'player_birthday': "2006-10-11", 'player_age': 19, "position" : "Third Base", "bats" : "S", "throws" : "R", "hit_tool" : 60, "power_tool" : 55, "run_tool" : 55, "arm_tool" : 55, "field_tool" : 50, "overall" : 55 },
+  { 'player_name': 'Franklin Arias', 'player_birthday': "2005-11-19", 'player_age': 20, "position" : "Shortstop", "bats" : "R", "throws" : "R", "hit_tool" : 60, "power_tool" : 55, "run_tool" : 45, "arm_tool" : 55, "field_tool" : 60, "overall" : 55 } 
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -46,7 +46,7 @@ const handlePost = function( request, response ) {
     received_data = JSON.parse(dataString)
     age = getAge(received_data.player_birthday.split("T")[0])
     received_data.player_age = age
-    overall = (received_data.hit_tool + received_data.power_tool + received_data.run_tool + received_data.arm_tool + received_data.field_tool) / 5.0
+    overall = (Number(received_data.hit_tool) + Number(received_data.power_tool) + Number(received_data.run_tool) + +Number(received_data.arm_tool) + Number(received_data.field_tool)) / 5.0
     received_data.overall = Math.round(overall)
     players.push(received_data)
 
