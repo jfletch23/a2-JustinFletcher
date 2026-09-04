@@ -7,10 +7,10 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
+const players = [
+  { 'player_name': 'Jesus Made', 'player_birthday': new Date("2007-05-08"), 'player_age': 19, "position" : "Shortstop", "bats" : "S", "throws": "R", "hit_tool" : 60, "power_tool" : 60, "run_tool" : 60, "arm_tool" : 60, "field_tool" : 55, "overall" : 59},
+  { 'player_name': 'Leo De Vries', 'player_birthday': new Date("2006-10-11"), 'player_age': 19, "position" : "Third Base", "bats" : "S", "throws" : "R", "hit_tool" : 60, "power_tool" : 55, "run_tool" : 55, "arm_tool" : 55, "field_tool" : 50, "overall" : 55 },
+  { 'player_name': 'Franklin Arias', 'player_birthday': new Date("2005-11-19"), 'player_age': 20, "position" : "Shortstop", "bats" : "R", "throws" : "R", "hit_tool" : 60, "power_tool" : 55, "run_tool" : 45, "arm_tool" : 55, "field_tool" : 60, "overall" : 55 } 
 ]
 
 const server = http.createServer( function( request,response ) {
@@ -26,7 +26,11 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  } else if (request.url === '/players') {
+    response.writeHead(200, {"Content-Type" : "application/json"})
+    response.end(JSON.stringify(players))
+  }
+  else{
     sendFile( response, filename )
   }
 }
@@ -39,13 +43,15 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    console.log( JSON.parse( dataString ) )
-    // ... do something with the data here!!!
+    received_data = JSON.parse(dataString)
+    age = getAge(received_data.player_birthday.split("T")[0])
+    received_data.player_age = age
+    overall = (received_data.hit_tool + received_data.power_tool + received_data.run_tool + received_data.arm_tool + received_data.field_tool) / 5.0
+    received_data.overall = Math.round(overall)
+    players.push(received_data)
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-
-    // change this to incorporate data
-    response.end('test')
+    response.writeHead( 200, "OK", {'Content-Type': 'application/json' })
+    response.end(JSON.stringify(players))
   })
 }
 
@@ -72,3 +78,19 @@ const sendFile = function( response, filename ) {
 }
 
 server.listen( process.env.PORT || port )
+
+// Source - https://stackoverflow.com/a/7091965
+// Posted by codeandcloud, modified by community. See post 'Timeline' for change history
+// Retrieved 2026-09-04, License - CC BY-SA 3.0
+
+function getAge(dateString) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
+
