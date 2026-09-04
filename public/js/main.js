@@ -20,11 +20,18 @@ const submit = async function( event ) {
   })
 
   const data_array = await response.json()
-  wrapper.innerHTML = ""
   display_data(data_array)
 
   console.log( 'text:', data_array )
   form.reset()
+}
+
+const playersRequest = async function() {
+  const response = await fetch("/players", {
+    method: "GET"
+  })
+  const player_data = await response.json()
+  display_data(player_data)
 }
 
 window.onload = async function() {
@@ -32,37 +39,51 @@ window.onload = async function() {
   //Doing add event listener so required attribute functions and my form cannot be submitted with null or undefined values
   form.addEventListener('submit', submit)
   wrapper = document.getElementsByClassName("wrapper")[0]
-  const response = await fetch("/players", {
-    method: 'GET'
+  playersRequest()
+}
+
+const deleteRequest = async function( event, body ) {
+  stringy = JSON.stringify(body)
+  const response = await fetch('/delete', {
+    method: "POST",
+    body: stringy
   })
-  const player_data = await response.json()
-  display_data(player_data)
+  const data_array = await response.json()
+  console.log(data_array)
+  playersRequest()
 }
 
 const display_data = function(data) {
-    for (let item of data) {
-      panel = document.createElement("div")
-      panel.classList.add("panel")
-      wrapper.appendChild(panel)
-      header = document.createElement("h3")
-      header.innerText = item.player_name
-      panel.appendChild(header)
-      ul = document.createElement("ul")
-      panel.appendChild(ul)
-      li_age = document.createElement("li")
-      li_age.innerText = "Age: " + item.player_age
-      ul.appendChild(li_age)
-      li_position = document.createElement("li")
-      li_position.innerText = item.player_position
-      ul.appendChild(li_position)
-      li_bats = document.createElement("li")
-      li_bats.innerText = "Bats: " + item.batting
-      ul.appendChild(li_bats)
-      li_throws = document.createElement("li")
-      li_throws.innerText = "Throws: " + item.throwing
-      ul.appendChild(li_throws)
-      li_overall = document.createElement("li")
-      li_overall.innerText = "Overall: " + item.overall
-      ul.appendChild(li_overall) 
+  wrapper.innerHTML = ""
+  for (let item of data) {
+    panel = document.createElement("div")
+    panel.classList.add("panel")
+    wrapper.appendChild(panel)
+    header = document.createElement("h3")
+    header.innerText = item.player_name
+    panel.appendChild(header)
+    ul = document.createElement("ul")
+    panel.appendChild(ul)
+    li_age = document.createElement("li")
+    li_age.innerText = "Age: " + item.player_age
+    ul.appendChild(li_age)
+    li_position = document.createElement("li")
+    li_position.innerText = item.player_position
+    ul.appendChild(li_position)
+    li_bats = document.createElement("li")
+    li_bats.innerText = "Bats: " + item.batting
+    ul.appendChild(li_bats)
+    li_throws = document.createElement("li")
+    li_throws.innerText = "Throws: " + item.throwing
+    ul.appendChild(li_throws)
+    li_overall = document.createElement("li")
+    li_overall.innerText = "Overall: " + item.overall
+    ul.appendChild(li_overall)
+    delete_button = document.createElement("button")
+    delete_button.innerText = "Delete Player"
+    delete_button.addEventListener('click', function(event) {
+      deleteRequest(event, {"player_name" : item.player_name})
+    })
+    panel.appendChild(delete_button) 
   }
 }

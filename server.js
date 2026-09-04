@@ -43,15 +43,29 @@ const handlePost = function( request, response ) {
   })
 
   request.on( 'end', function() {
-    received_data = JSON.parse(dataString)
-    age = getAge(received_data.player_birthday.split("T")[0])
-    received_data.player_age = age
-    overall = (Number(received_data.hit_tool) + Number(received_data.power_tool) + Number(received_data.run_tool) + +Number(received_data.arm_tool) + Number(received_data.field_tool)) / 5.0
-    received_data.overall = Math.round(overall)
-    players.push(received_data)
+    if (request.url === "/submit") {
+      received_data = JSON.parse(dataString)
+      age = getAge(received_data.player_birthday.split("T")[0])
+      received_data.player_age = age
+      overall = (Number(received_data.hit_tool) + Number(received_data.power_tool) + Number(received_data.run_tool) + +Number(received_data.arm_tool) + Number(received_data.field_tool)) / 5.0
+      received_data.overall = Math.round(overall)
+      players.push(received_data)
 
-    response.writeHead( 200, "OK", {'Content-Type': 'application/json' })
-    response.end(JSON.stringify(players))
+      response.writeHead( 200, "OK", {'Content-Type': 'application/json' })
+      response.end(JSON.stringify(players))
+    } else if (request.url === "/delete") {
+      console.log("hello world")
+      received_data = JSON.parse(dataString)
+      console.log(received_data)
+      const player_index = players.findIndex(item => item.player_name === received_data.player_name)
+      if (player_index !== -1) {
+        players.splice(player_index, 1)
+      }
+      console.log(players)
+      response.writeHead(200, "OK", {'Content-Type' : 'application/json'})
+      response.end(JSON.stringify(players))
+    }
+
   })
 }
 
