@@ -1,18 +1,81 @@
 <!doctype html>
 <html lang='en'>
   <head>
-    <title>CS4241 Assignment 2</title>
+    <title>Baseball Prospects Ranking</title>
     <meta charset='utf-8' />
     <script src='js/main.js'></script>
     <link rel='stylesheet' href='css/main.css' />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
     
     <!-- get rid of favicon error -->
     <link rel='icon' href='data:;base64,iVBORw0KGgo=' />
   </head>
   <body>
+    <header>
+    <img src="MLB_Logo.png" alt="MLB Logo" >
+    <h1>MLB Prospects Database</h1>
+    </header>
     <form>
-      <input type='text' id='yourname' value='your name here'>
-      <button>submit</button>
+      <h2>Fill Out Scouting Report</h2>
+      <label for="player_name">Enter player name</label>
+      <input type="text" id="player_name" value="Jesus Made">
+      <label for="player_birthday">Enter player birthday</label>
+      <input type="date" id="player_birthday">
+      <label for="player_position">Select player's position</label>
+      <select name="player_position" id="player_position">
+        <option value="Pitcher">Pitcher</option>
+        <option value="Catcher">Catcher</option>
+        <option value="First Base">First Base</option>
+        <option value="Second Base">Second Base</option>
+        <option value="Third Base">Third Base</option>
+        <option value="Shortstop">Shortstop</option>
+        <option value="Left Field">Left Field</option>
+        <option value="Center Field">Center Field</option>
+        <option value="Right Field">Right Field</option>
+      </select>
+      <fieldset>
+        <legend>Enter player's batting handedness</legend>
+        <div class="radio_group">
+          <input type="radio" id="right" name="batting" value="Right">
+          <label for="right">Right</label>
+        </div>
+        <div class="radio_group">
+          <input type="radio" id="left" name="batting" value="Left">
+          <label for="left">Left</label>
+        </div>
+        <div class="radio_group">
+          <input type="radio" id="switch" name="batting" value="Switch">
+          <label for="switch">Switch</label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Enter player's throwing handedness</legend>
+        <div class="radio_group">
+          <input type="radio" id="right" name="throwing" value="Right">
+          <label for="right">Right</label>
+        </div>
+        <div class="radio_group">
+          <input type="radio" id="left" name="throwing" value="Left">
+          <label for="left">Left</label>
+        </div>
+        <div class="radio_group">
+          <input type="radio" id="switch" name="throwing" value="Switch">
+          <label for="switch">Switch</label>
+        </div>
+      </fieldset>
+      <label for="hit_tool">Enter player's hit tool rating</label>
+      <input type="number" id="hit_tool" min="20" max="80" step="5" value="50">
+      <label for="power_tool">Enter player's power tool rating</label>
+      <input type="number" id="power_tool" min="20" max="80" step="5" value="50">
+      <label for="run_tool">Enter player's run tool rating</label>
+      <input type="number" id="run_tool" min="20" max="80" step="5" value="50">
+      <label for="arm_tool">Enter player's arm tool rating</label>
+      <input type="number" id="arm_tool" min="20" max="80" step="5" value="50">
+      <label for="field_tool">Enter player's field tool rating</label>
+      <input type="number" id="field_tool" min="20" max="80" step="5" value="50">                      
+      <button>Submit</button>
     </form>
   </body>
 </html>

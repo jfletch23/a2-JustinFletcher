@@ -1,4 +1,33 @@
 body {
-  background:black;
-  color:white;
+  background:salmon;
+  font-family: Merriweather, sans-serif;
+  font-size: 125%
+}
+header {
+  text-align:center
+}
+img {
+  max-width:25%
+}
+input, select {
+  display: block;
+  margin-bottom: 10px;
+}
+fieldset {
+  border: none;
+  padding: 0px;
+  margin: 0px;
+}
+legend {
+  margin-bottom: 3px;
+}
+.radio_group {
+  display:block
+}
+.radio_group input, .radio_group label {
+  display:inline;
+}
+input[type="number"] {
+  width: 250px;
+  height: 25px;
 }
