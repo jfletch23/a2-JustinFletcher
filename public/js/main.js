@@ -24,11 +24,13 @@ const submit = async function( event ) {
   display_data(data_array)
 
   console.log( 'text:', data_array )
+  form.reset()
 }
 
 window.onload = async function() {
-  const button = document.querySelector('button')
-  button.onclick = submit
+  const form = document.querySelector("form")
+  //Doing add event listener so required attribute functions and my form cannot be submitted with null or undefined values
+  form.addEventListener('submit', submit)
   wrapper = document.getElementsByClassName("wrapper")[0]
   const response = await fetch("/players", {
     method: 'GET'
