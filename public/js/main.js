@@ -1,4 +1,5 @@
 // FRONT-END (CLIENT) JAVASCRIPT HERE
+let wrapper;
 
 const submit = async function( event ) {
   // stop form submission from trying to load
@@ -18,12 +19,48 @@ const submit = async function( event ) {
     body 
   })
 
-  const text = await response.text()
+  const data_array = await response.json()
+  wrapper.innerHTML = ""
+  display_data(data_array)
 
-  console.log( 'text:', text )
+  console.log( 'text:', data_array )
 }
 
-window.onload = function() {
+window.onload = async function() {
   const button = document.querySelector('button')
   button.onclick = submit
+  wrapper = document.getElementsByClassName("wrapper")[0]
+  const response = await fetch("/players", {
+    method: 'GET'
+  })
+  const player_data = await response.json()
+  display_data(player_data)
+}
+
+const display_data = function(data) {
+    for (let item of data) {
+      panel = document.createElement("div")
+      panel.classList.add("panel")
+      wrapper.appendChild(panel)
+      header = document.createElement("h3")
+      header.innerText = item.player_name
+      panel.appendChild(header)
+      ul = document.createElement("ul")
+      panel.appendChild(ul)
+      li_age = document.createElement("li")
+      li_age.innerText = "Age: " + item.player_age
+      ul.appendChild(li_age)
+      li_position = document.createElement("li")
+      li_position.innerText = item.player_position
+      ul.appendChild(li_position)
+      li_bats = document.createElement("li")
+      li_bats.innerText = "Bats: " + item.batting
+      ul.appendChild(li_bats)
+      li_throws = document.createElement("li")
+      li_throws.innerText = "Throws: " + item.throwing
+      ul.appendChild(li_throws)
+      li_overall = document.createElement("li")
+      li_overall.innerText = "Overall: " + item.overall
+      ul.appendChild(li_overall) 
+  }
 }

@@ -8,9 +8,9 @@ const http = require( 'http' ),
       port = 3000
 
 const players = [
-  { 'player_name': 'Jesus Made', 'player_birthday': "2007-05-08", 'player_age': 19, "position" : "Shortstop", "bats" : "S", "throws": "R", "hit_tool" : 60, "power_tool" : 60, "run_tool" : 60, "arm_tool" : 60, "field_tool" : 55, "overall" : 59},
-  { 'player_name': 'Leo De Vries', 'player_birthday': "2006-10-11", 'player_age': 19, "position" : "Third Base", "bats" : "S", "throws" : "R", "hit_tool" : 60, "power_tool" : 55, "run_tool" : 55, "arm_tool" : 55, "field_tool" : 50, "overall" : 55 },
-  { 'player_name': 'Franklin Arias', 'player_birthday': "2005-11-19", 'player_age': 20, "position" : "Shortstop", "bats" : "R", "throws" : "R", "hit_tool" : 60, "power_tool" : 55, "run_tool" : 45, "arm_tool" : 55, "field_tool" : 60, "overall" : 55 } 
+  { 'player_name': 'Jesus Made', 'player_birthday': "2007-05-08", 'player_age': 19, "player_position" : "Shortstop", "batting" : "S", "throwing": "R", "hit_tool" : 60, "power_tool" : 60, "run_tool" : 60, "arm_tool" : 60, "field_tool" : 55, "overall" : 59},
+  { 'player_name': 'Leo De Vries', 'player_birthday': "2006-10-11", 'player_age': 19, "player_position" : "Third Base", "batting" : "S", "throwing" : "R", "hit_tool" : 60, "power_tool" : 55, "run_tool" : 55, "arm_tool" : 55, "field_tool" : 50, "overall" : 55 },
+  { 'player_name': 'Franklin Arias', 'player_birthday': "2005-11-19", 'player_age': 20, "player_position" : "Shortstop", "batting" : "R", "throwing" : "R", "hit_tool" : 60, "power_tool" : 55, "run_tool" : 45, "arm_tool" : 55, "field_tool" : 60, "overall" : 55 } 
 ]
 
 const server = http.createServer( function( request,response ) {
