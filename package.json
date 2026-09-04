@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "MLB Prospects Database",
+  "version": "1.0.0",
+  "description": "A webapp for inputting and saving scouting reports about baseball players",
+  "author": "Justin Fletcher",
   "scripts": {
     "start": "node server.js"
   },
